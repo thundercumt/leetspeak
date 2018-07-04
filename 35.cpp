@@ -14,10 +14,7 @@ public:
 private:
   int insertIdx(vector<int>& v, int n, int l, int r, int target) {
     if (l>r) {
-      if (r<0) return 0;
-      if (l>=n) return n;
-      if (v[r] > target) return r;
-      else return l;
+      return l;
     }
     
     int i = (l+r) / 2;
