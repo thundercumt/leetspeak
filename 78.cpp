@@ -4,7 +4,7 @@
 
 using namespace std;
 
-class Solution {
+class SolutionOK {
 public:
   vector< vector<int> > subsets(vector<int>& nums) {
     vector< vector<int> > r;
@@ -27,6 +27,28 @@ public:
     }
     
   }
+};
+
+class Solution {
+public:
+    vector< vector<int> > subsets(vector<int>& nums) {
+        vector< vector<int> > v;
+        v.push_back(vector<int>());
+        int size = nums.size();
+        if (size == 0) return v;
+
+        sort(nums.begin(), nums.end());
+
+        for (int i=0; i<size; ++i) {
+            int vsize = v.size();
+            for (int j=0; j<vsize; ++j) {
+                vector<int> copy(v[j]);
+                copy.push_back(nums[i]);
+                v.push_back(copy);
+            }
+        }
+        return v;
+    }
 };
 
 
