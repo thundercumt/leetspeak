@@ -4,7 +4,7 @@
 
 using namespace std;
 
-class Solution {
+class SolutionRecursive {
 public:
     vector< vector<int> > subsetsWithDup(vector<int>& nums) {
         vector< vector<int> > v;
@@ -37,12 +37,41 @@ private:
     }
 };
 
+class SolutionIterative {
+public:
+    vector< vector<int> > subsetsWithDup(vector<int>& nums) {
+        vector< vector<int> > v;
+        v.push_back(vector<int>());
+        int size = nums.size();
+        if (size == 0) return v;
+
+        sort(nums.begin(), nums.end());
+        
+        int startFrom = 0;
+        for (int i=0; i<size; ++i) {
+            int vsize = v.size();
+            if (i == 0 || nums[i-1]!=nums[i]) {
+                startFrom = 0;
+            }
+
+            for (int j=startFrom; j<vsize; ++j) {
+                vector<int> copy(v[j]);
+                copy.push_back(nums[i]);
+                v.push_back(copy);
+            }
+
+            startFrom = vsize;
+        }
+        
+        return v;
+    }
+};
 
 
 int main() {
     int x[] = {1,2,2,3,3,3};
     vector<int> v(x, x + sizeof(x) / sizeof(x[0]));
-    vector< vector<int> > r = Solution().subsetsWithDup(v);
+    vector< vector<int> > r = SolutionIterative().subsetsWithDup(v);
 
     for (int i=0; i<r.size(); ++i) {
         for (int j=0; j<r[i].size(); ++j) {
